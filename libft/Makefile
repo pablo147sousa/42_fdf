@@ -15,55 +15,48 @@ INCLUDES_FLAGS = -I$(INCLUDES)
 
 SRC = src
 MAIN = main
-PROGRAM_NAME = run
 
-# Tests
-TEST_SRC =
-TEST_OBJDIR = $(OBJDIR)/tests
-TEST_FLAGS = -L. -lft -lcmocka -lbsd
+# Dirs
+DIR_CHECK = ft_check
+DIR_FD = ft_fds
+DIR_LISTS = ft_list
+DIR_MEM = ft_memory
+DIR_NUM = ft_num
+DIR_STR = ft_strings
+DIR_PRINTF = ft_printf
+DIR_GNL = gnl
 
-SRC_CHECK =	ft_check/ft_isalnum.c ft_check/ft_isalpha.c ft_check/ft_isascii.c \
-			ft_check/ft_isdigit.c ft_check/ft_isprint.c ft_check/ft_toupper.c  \
-			ft_check/ft_tolower.c ft_check/ft_isspace.c
-SRC_FD =	ft_fds/ft_putchar_fd.c ft_fds/ft_putstr_fd.c ft_fds/ft_putnbr_fd.c \
-			ft_fds/ft_putendl_fd.c
-SRC_LISTS =	ft_list/ft_lstadd_back_bonus.c ft_list/ft_lstadd_front_bonus.c \
-			ft_list/ft_lstclear_bonus.c ft_list/ft_lstdelone_bonus.c \
-			ft_list/ft_lstlast_bonus.c ft_list/ft_lstmap_bonus.c ft_list/ft_lstnew_bonus.c \
-			ft_list/ft_lstsize_bonus.c ft_list/ft_lstiter_bonus.c
-SRC_MEM =	ft_memory/ft_memchr.c ft_memory/ft_memcmp.c ft_memory/ft_memcpy.c \
-			ft_memory/ft_calloc.c ft_memory/ft_memmove.c ft_memory/ft_memset.c \
-			ft_memory/ft_bzero.c
-SRC_NUM =	ft_num/ft_atoi.c ft_num/ft_atoi_base.c ft_num/ft_strtol.c
-SRC_STR =	ft_strings/ft_split.c ft_strings/ft_strchr.c \
-			ft_strings/ft_strdup.c ft_strings/ft_striteri.c ft_strings/ft_strjoin.c \
-			ft_strings/ft_strlcat.c ft_strings/ft_strlcpy.c ft_strings/ft_strlen.c  \
-			ft_strings/ft_strmapi.c ft_strings/ft_strncmp.c ft_strings/ft_strnstr.c \
-			ft_strings/ft_strrchr.c ft_strings/ft_strtrim.c ft_strings/ft_substr.c \
-			ft_strings/ft_strcmp.c ft_strings/ft_count_words.c
+SRC_CHECK =	ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_toupper.c \
+			ft_tolower.c ft_isspace.c
 
-PRINTF =	ft_printf/ft_putchar.c ft_printf/ft_putstr.c ft_printf/ft_printnbr.c ft_printf/ft_itoh.c ft_printf/ft_printunbr.c ft_printf/ft_printptr.c \
-			ft_printf/ft_printf.c
+SRC_FD =	ft_putchar_fd.c ft_putstr_fd.c ft_putnbr_fd.c ft_putendl_fd.c
 
-SRC_GNL =	gnl/get_next_line.c gnl/get_next_line_utils.c
+SRC_LISTS =	ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c ft_lstdelone_bonus.c \
+			ft_lstlast_bonus.c ft_lstmap_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c ft_lstiter_bonus.c
 
-SRCS_DIR =	$(addprefix $(SRC)/, $(PRINTF)) \
-			$(addprefix $(SRC)/, $(SRC_GNL)) \
-			$(addprefix $(SRC)/, $(SRC_STR)) \
-			$(addprefix $(SRC)/, $(SRC_CHECK)) \
-			$(addprefix $(SRC)/, $(SRC_LISTS)) \
-			$(addprefix $(SRC)/, $(SRC_MEM)) \
-			$(addprefix $(SRC)/, $(SRC_NUM)) \
-			$(addprefix $(SRC)/, $(SRC_FD)) \
+SRC_MEM =	ft_memchr.c ft_memcmp.c ft_memcpy.c ft_calloc.c ft_memmove.c ft_memset.c ft_bzero.c
 
-OBJS_DIR =	$(addprefix $(OBJDIR)/, $(PRINTF:.c=.o)) \
-			$(addprefix $(OBJDIR)/, $(SRC_GNL:.c=.o)) \
-			$(addprefix $(OBJDIR)/, $(SRC_STR:.c=.o)) \
-			$(addprefix $(OBJDIR)/, $(SRC_CHECK:.c=.o)) \
-			$(addprefix $(OBJDIR)/, $(SRC_LISTS:.c=.o)) \
-			$(addprefix $(OBJDIR)/, $(SRC_MEM:.c=.o)) \
-			$(addprefix $(OBJDIR)/, $(SRC_NUM:.c=.o)) \
-			$(addprefix $(OBJDIR)/, $(SRC_FD:.c=.o)) \
+SRC_NUM =	ft_atoi.c ft_atoi_base.c ft_strtol.c
+
+SRC_STR =	ft_split.c ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c \
+			ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c \
+			ft_strcmp.c ft_count_words.c
+
+PRINTF =	ft_putchar.c ft_putstr.c ft_printnbr.c ft_itoh.c ft_printunbr.c ft_printptr.c \
+			ft_printf.c
+
+SRC_GNL =	get_next_line.c get_next_line_utils.c
+
+SRCS_DIR =	$(addprefix $(SRC)/, $(addprefix $(DIR_PRINTF)/, $(PRINTF))) \
+			$(addprefix $(SRC)/, $(addprefix $(DIR_GNL)/, $(SRC_GNL))) \
+			$(addprefix $(SRC)/, $(addprefix $(DIR_STR)/, $(SRC_STR))) \
+			$(addprefix $(SRC)/, $(addprefix $(DIR_CHECK)/, $(SRC_CHECK))) \
+			$(addprefix $(SRC)/, $(addprefix $(DIR_LISTS)/, $(SRC_LISTS))) \
+			$(addprefix $(SRC)/, $(addprefix $(DIR_MEM)/, $(SRC_MEM))) \
+			$(addprefix $(SRC)/, $(addprefix $(DIR_NUM)/, $(SRC_NUM))) \
+			$(addprefix $(SRC)/, $(addprefix $(DIR_FD)/, $(SRC_FD))) \
+
+OBJS_DIR = $(addprefix $(OBJDIR)/, $(SRCS_DIR:$(SRC)/%.c=%.o))
 
 all: $(NAME)
 
@@ -84,12 +77,9 @@ $(OBJDIR)/%.o: $(SRC)/%.c
 clean:
 	@rm -rf $(OBJDIR)
 
-debug: CFLAGS += -g
-debug: re
-
 fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re debug
+.PHONY: all clean fclean re
