@@ -6,7 +6,7 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 12:26:27 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/03/14 14:14:03 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:25:07 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,14 @@ static void	check_signal(int *sign, const char	**s)
 	}
 }
 
+/// @brief Function implemented to reproduce the behavior of the strtol
+/// function, but does not handle errno.
+/// @param str String to be converted.
+/// @param endptr Address of the pointer where the conversion ended.
+/// If not desired, provide NULL as a parameter.
+/// @param base Base chosen for conversion.
+/// @return Conversion result. In case of error:
+/// LONG_MAX for overflow or LONG_MIN for underflow.
 long int	ft_strtol(const char *str, char **endptr, int base)
 {
 	const char	*s;
