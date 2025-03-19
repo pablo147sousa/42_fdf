@@ -6,7 +6,7 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 10:41:56 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/03/13 11:19:38 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:52:17 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ static t_uchar	get_b(int trgb)
 	return (((t_uchar *)&trgb)[0]);
 }
 
-int	get_color(int num)
+int	get_color_t(int num)
 {
 	t_uchar	trgb[4];
+
 	trgb[0] = get_b(num);
 	trgb[1] = get_g(num);
 	trgb[2] = get_r(num);
