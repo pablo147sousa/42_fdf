@@ -6,7 +6,7 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:34:43 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/03/19 16:47:56 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:53:34 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,44 @@ t_map	*alloc_map(t_info *table)
 	map->size = table->cols * table->lines;
 	fill_map(table->file_fd, map);
 	return (map);
+}
+
+t_img	*get_img(t_fdf *fdf)
+{
+	t_img	*img;
+
+	img = ft_calloc(1, sizeof(t_img));
+	if (!img)
+		return (NULL);
+	img->img = mlx_new_image(fdf->mlx, fdf->win_width, fdf->win_height);
+	if (!img->img)
+		return (free(img), NULL);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
+								&img->line_length, &img->endian);
+	if (!img->addr)
+		return (free(img), NULL);
+	return (img);
+}
+
+// todo tratar os angulos e colormode?
+t_fdf	*alloc_fdf(t_info *table)
+{
+	t_fdf	*fdf;
+
+	fdf = ft_calloc(1, sizeof(t_fdf));
+	if (!fdf)
+		return (NULL);
+	fdf->mlx = mlx_init();
+	if (!fdf->mlx)
+		return (free(fdf), NULL);
+	fdf->win_width = table->cols * SCALE;
+	fdf->win_height = table->lines * SCALE;
+	fdf->win = mlx_new_window(fdf->mlx, fdf->win_width,
+		 fdf->win_height, "fdf");
+	if (!fdf->win)
+		return (free(fdf), NULL);
+	fdf->map = alloc_map(table);
+	if (!fdf->map)
+		return (free(fdf), NULL);
+	return (fdf);
 }

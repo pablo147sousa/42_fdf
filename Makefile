@@ -9,7 +9,7 @@ NAME = fdf
 
 # SOURCES AND OBJS
 MAIN    =	main.c
-SOURCES =	map.c colors.c constructors.c cleaners.c aux.c utils.c
+SOURCES =	map.c colors.c constructors.c cleaners.c aux.c utils.c window.c
 
 # Includes
 INCLUDE = include

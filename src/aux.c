@@ -6,7 +6,7 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:54:37 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/03/19 14:53:38 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:59:12 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_value(const char *str, char **endptr, int base)
 	return ((int) color);
 }
 
-int	ft_count_word(const char *s, char c)
+static int	ft_count_word(const char *s, char c)
 {
 	int	size;
 

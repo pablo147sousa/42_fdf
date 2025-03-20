@@ -6,13 +6,13 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 12:36:58 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/03/19 16:51:08 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:58:42 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	init_point(t_point *point, char *start, char *end)
+static int	init_point(t_point *point, char *start, char *end)
 {
 	char	*ptr;
 
@@ -31,7 +31,7 @@ int	init_point(t_point *point, char *start, char *end)
 	return (1);
 }
 
-void	fill_col(char *line, t_point *col, int count, t_map *map)
+static void	fill_col(char *line, t_point *col, int count, t_map *map)
 {
 	char	*ptr;
 	char	*start;

@@ -6,7 +6,7 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:53:47 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/03/19 16:50:16 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:15:06 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,13 @@
 # ifndef WHITE
 #  define WHITE 0xFFFFFF
 # endif
-# ifndef TEST
-#  define TEST 0xFF0000
+
+# ifndef SCALE
+#  define SCALE 30
+# endif
+
+# ifndef Z_SCALE
+#  define Z_SCALE 30
 # endif
 
 /// @brief Structure that has the point information.
@@ -33,6 +38,15 @@ typedef struct s_point
 	int	value;
 	int	color;
 }	t_point;
+
+
+typedef struct	s_img {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
 
 // white 16777215
 typedef struct s_info
@@ -80,13 +94,18 @@ typedef struct s_transform
 
 typedef unsigned char	t_uchar;
 
+void	fill_map(int fd, t_map *map);
+void	draw_map(t_fdf *fdf);
+
+// *AUX
+
 int		validator(t_info *table);
 int		get_value(const char *str, char **endptr, int base);
-void	fill_map(int fd, t_map *map);
 
 // *CONSTRUCTORS
 
-t_map	*alloc_map(t_info *table);
+t_img	*get_img(t_fdf *fdf);
+t_fdf	*alloc_fdf(t_info *table);
 
 // *CLEANERS
 
@@ -98,5 +117,6 @@ void	ft_free(void **matrix, int size);
 // *UTILS
 
 t_info	*get_info(const char *input);
+void	put_pixel(t_img *img, t_point *p);
 
 #endif
