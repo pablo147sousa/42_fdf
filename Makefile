@@ -9,7 +9,8 @@ NAME = fdf
 
 # SOURCES AND OBJS
 MAIN    =	main.c
-SOURCES =	map.c colors.c constructors.c cleaners.c aux.c utils.c window.c
+SOURCES =	map.c colors.c constructors.c cleaners.c aux.c utils.c window.c \
+			functions.c draw.c pov.c
 
 # Includes
 INCLUDE = include
@@ -75,7 +76,7 @@ clean:
 fclean: clean
 	@echo "$(RED)Removing $(NAME)$(RESET)"
 	@rm -rf $(NAME)
-	@echo "$(RED)Removing $(BONUS)$(RESET)"
+#	@echo "$(RED)Removing $(BONUS)$(RESET)"
 	@rm -rf $(BONUS)
 	@echo "$(RED)Removing libs$(RESET)"
 	@rm -rf $(LIBFT)

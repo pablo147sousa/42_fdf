@@ -6,7 +6,7 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:34:43 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/03/20 15:53:34 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/04/09 12:13:47 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,19 @@ t_map	*alloc_map(t_info *table)
 
 	map = ft_calloc(1, sizeof(t_map));
 	if (!map)
-		return (NULL);
+		return (perror("map struct error\n"), NULL);
 	map->pts = ft_calloc(table->lines, sizeof(t_point *));
 	if (!map->pts)
-		return (free(map), NULL);
+		return (free(map), perror("lines alloc\n"), NULL);
 	i = -1;
 	while (++i < table->lines)
 	{
 		map->pts[i] = ft_calloc(table->cols, sizeof(t_point));
 		if (!map->pts[i])
-			return (ft_free((void **) map, i), NULL);
+			return (ft_free((void **) map, i), perror("cols alloc\n"), NULL);
 	}
 	map->cols = table->cols;
 	map->lines = table->lines;
-	map->scale = table->scale;
-	map->z_scale = table->z_scale;
 	map->size = table->cols * table->lines;
 	fill_map(table->file_fd, map);
 	return (map);
@@ -45,14 +43,14 @@ t_img	*get_img(t_fdf *fdf)
 
 	img = ft_calloc(1, sizeof(t_img));
 	if (!img)
-		return (NULL);
+		return (perror("img alloc error\n"), NULL);
 	img->img = mlx_new_image(fdf->mlx, fdf->win_width, fdf->win_height);
 	if (!img->img)
-		return (free(img), NULL);
+		return (free(img), perror("mlx img error\n"), NULL);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 								&img->line_length, &img->endian);
 	if (!img->addr)
-		return (free(img), NULL);
+		return (free(img), perror("mlx img addr error\n"), NULL);
 	return (img);
 }
 
@@ -63,16 +61,15 @@ t_fdf	*alloc_fdf(t_info *table)
 
 	fdf = ft_calloc(1, sizeof(t_fdf));
 	if (!fdf)
-		return (NULL);
+		return (perror("fdf struct malloc\n"), NULL);
 	fdf->mlx = mlx_init();
 	if (!fdf->mlx)
-		return (free(fdf), NULL);
-	fdf->win_width = table->cols * SCALE;
-	fdf->win_height = table->lines * SCALE;
+		return (free(fdf), perror("mlx init error\n"), NULL);
+	win_size(table, fdf);
 	fdf->win = mlx_new_window(fdf->mlx, fdf->win_width,
 		 fdf->win_height, "fdf");
-	if (!fdf->win)
-		return (free(fdf), NULL);
+	 if (!fdf->win)
+		return (free(fdf), perror("mlx windows error\n"), NULL);
 	fdf->map = alloc_map(table);
 	if (!fdf->map)
 		return (free(fdf), NULL);

@@ -6,7 +6,7 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:35:10 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/03/19 16:51:51 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:14:28 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,26 @@ void	clean_map(t_map *map)
 	free(map);
 }
 
-void	armageddon(t_fdf *fdf, t_info *table)
+void	armageddon(t_data *data)
 {
-	if (table)
-		clean_table(table);
-	if (!fdf)
+	if (!data || !data->fdf || !data->table)
 		return ;
-	if (fdf->map)
-		clean_map(fdf->map);
-	if (fdf->win)
-		free(fdf->win);
-	if (fdf->mlx)
-		free(fdf->mlx);
-	free(fdf);
+	clean_table(data->table);
+	if (data->fdf->map)
+		clean_map(data->fdf->map);
+	if (data->fdf->mlx)
+	{
+		if (data->fdf && data->fdf->mlx && data->fdf->img)
+		{
+			mlx_destroy_image(data->fdf->mlx, data->fdf->img->img);
+			free(data->fdf->img);
+		}
+		if (data->fdf->win)
+			mlx_destroy_window(data->fdf->mlx, data->fdf->win);
+		if (data->fdf->mlx)
+			mlx_destroy_display(data->fdf->mlx);
+		free(data->fdf->mlx);
+	}
+	free(data->fdf);
+	free(data);
 }

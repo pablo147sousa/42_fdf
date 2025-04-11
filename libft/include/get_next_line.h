@@ -6,7 +6,7 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 10:21:39 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/03/17 15:12:01 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/04/09 11:43:51 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10000
+#  define BUFFER_SIZE 100000
 # endif
 
 char	*get_next_line(int fd);

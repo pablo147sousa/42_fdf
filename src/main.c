@@ -6,65 +6,85 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:46:03 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/03/20 16:05:21 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:05:23 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
+// TODO remove later
+int	key_hook(int keycode, t_fdf *vars)
 {
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	(void ) vars;
+	ft_printf("Hello from key_hook %d!\n", keycode);
+	return (0);
 }
 
 int	main(int ac, const char **av)
 {
-	t_fdf	*fdf;
-	t_info	*table;
+	t_data	*data;
 
 	if (ac != 2)
 		return (1);
-	table = get_info(av[1]);
-	if (!table)
-		return (0);
-	fdf = alloc_fdf(table);
-	if (!fdf)
-		return (0);
-	draw_map(fdf);
-	mlx_loop(fdf->mlx);
+	data = ft_calloc(1, sizeof(t_data));
+	if (!data)
+		return (perror("data struct malloc"), 1);
+	data->table = get_info(av[1]);
+	if (!data->table)
+		return (free(data), 0);
+	data->fdf = alloc_fdf(data->table);
+	if (!data->fdf)
+		return (clean_table(data->table), free(data), 1);
+	render_map(data);
+	if(!data->fdf->img)
+		return(perror("erro img"), 1);
+	mlx_hook(data->fdf->win, 2, 1L<<0, close_win_keycode, data);
+	mlx_hook(data->fdf->win, 17, 0, close_win_mouse, data);
+	mlx_loop(data->fdf->mlx);
 	return (0);
 }
 
-// int	main(int ac, const char **av)
+
+// #define ESC_KEY 65307
+
+// typedef struct s_datat {
+//     void    *mlx;
+//     void    *win;
+// }               t_datat;
+
+// int key_hookt(int keycode, t_datat *data)
 // {
-// 	t_info	*table;
-// 	t_map	*map;
-// 	int i,j;
-
-// 	if (ac != 2)
-// 		return (1);
-// 	table = get_info(av[1]);
-// 	if (!table)
-// 		return (0);
-// 	// process_map(av[1], lines, cols, &map);
-// 	ft_printf("mapa ok\n");
-// 	ft_printf("lines:%d cols:%d\n", table->lines, table->cols);
-// 	map = alloc_map(table);
-// 	i = -1;
-// 	while (++i < table->lines)
-// 	{
-// 		j = -1;
-// 		while (++j < table->cols)
-// 			ft_printf("[%d][%d] ", map->pts[i][j].ord, map->pts[i][j].abs);
-// 		ft_printf("\n");
-// 	}
-// 	clean_map(map);
-// 	armageddon(NULL, table);
-// 	return (0);
+//     if (keycode == ESC_KEY)
+//     {
+//         mlx_destroy_window(data->mlx, data->win);
+//         // Opcional: se você tiver outras coisas para limpar, faça aqui
+//         exit(0);
+//     }
+//     return (0);
 // }
-// ft_printf("[%d][%d]:%d\n", i, j, map->pts[i][j].value);
-// ft_printf("%d(%d) ", map->pts[i][j].value, map->pts[i][j].color);
 
+// int main(void)
+// {
+//     t_datat  data;
+
+//     data.mlx = mlx_init();
+//     if (!data.mlx)
+//     {
+//         ft_putstr_fd("Error: mlx_init failed\n", 2);
+//         return (1);
+//     }
+
+//     data.win = mlx_new_window(data.mlx, 800, 600, "MiniLibX Test");
+//     if (!data.win)
+//     {
+//         ft_putstr_fd("Error: mlx_new_window failed\n", 2);
+//         free(data.mlx);
+//         return (1);
+//     }
+
+//     mlx_key_hook(data.win, key_hookt, &data);
+//     mlx_loop(data.mlx);
+
+//     // Normalmente não chegamos aqui porque saímos com ESC
+//     return (0);
+// }
