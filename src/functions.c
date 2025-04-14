@@ -6,7 +6,7 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 15:48:24 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/04/11 14:26:49 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:43:46 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,20 @@ void	win_size(t_info *table, t_fdf *fdf)
 	fdf->scale = 10;
 	fdf->win_width = table->cols * fdf->scale;
 	fdf->win_height = table->lines * fdf->scale;
+	fdf->scale /= 2;
 	if (fdf->win_width < MIN_WIN_SIZE || fdf->win_height < MIN_WIN_SIZE)
 	{
 		fdf->scale = ft_max(MIN_WIN_SIZE / table->cols, MIN_WIN_SIZE / table->lines);
 		fdf->win_width = table->cols * fdf->scale;
 		fdf->win_height = table->lines * fdf->scale;
+		fdf->scale /= 2;
 	}
 	if (fdf->win_width > MAX_WIN_SIZE || fdf->win_height > MAX_WIN_SIZE)
 	{
 		fdf->scale = ft_min(MAX_WIN_SIZE / table->cols, MAX_WIN_SIZE / table->lines);
 		fdf->win_width = table->cols * fdf->scale;
 		fdf->win_height = table->lines * fdf->scale;
+		fdf->scale /= 2;
 	}
+	
 }
