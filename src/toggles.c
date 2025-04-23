@@ -6,7 +6,7 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 10:28:17 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/04/23 14:58:47 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:59:06 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 static void	translation(t_fdf *fdf, int key_code)
 {
 	if (key_code == KEY_W)
-		fdf->t.move_y -= 5;
+		fdf->t.move_y -= 20;
 	else if (key_code == KEY_S)
-		fdf->t.move_y += 5;
+		fdf->t.move_y += 20;
 	else if (key_code == KEY_A)
-		fdf->t.move_x -= 5;
+		fdf->t.move_x -= 20;
 	else if (key_code == KEY_D)
-		fdf->t.move_x += 5;
+		fdf->t.move_x += 20;
 }
 
 static void	rotate_map(t_fdf *fdf, int key_code)

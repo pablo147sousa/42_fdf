@@ -6,7 +6,7 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 15:58:16 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/04/23 14:47:24 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:58:04 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void	fill_struct(t_bres *b, t_fdf *fdf, t_point *start, t_point *end)
 {
-	b->x0 = (start->abs + fdf->offset) * fdf->t.zoom;
-	b->y0 = (start->ord + fdf->offset) * fdf->t.zoom;
-	b->x1 = (end->abs + fdf->offset) * fdf->t.zoom;
-	b->y1 = (end->ord + fdf->offset) * fdf->t.zoom;
+	b->x0 = (start->abs + fdf->offset + fdf->t.move_x) * fdf->t.zoom;
+	b->y0 = (start->ord + fdf->offset + fdf->t.move_y) * fdf->t.zoom;
+	b->x1 = (end->abs + fdf->offset + fdf->t.move_x) * fdf->t.zoom;
+	b->y1 = (end->ord + fdf->offset + fdf->t.move_y) * fdf->t.zoom;
 	b->color = start->color;
 	b->dx = ft_abs(b->x1 - b->x0);
 	b->dy = -ft_abs(b->y1 - b->y0);

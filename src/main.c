@@ -6,7 +6,7 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:46:03 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/04/23 15:14:41 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:58:31 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int	handle_line(t_fdf *fdf, t_point *start, t_point *end)
 		return (1);
 	new_start = *start;
 	new_end = *end;
-	new_start.abs = (new_start.abs + fdf->t.move_x) * fdf->t.scale;
-	new_start.ord = (new_start.ord + fdf->t.move_y) * fdf->t.scale;
+	new_start.abs = (new_start.abs) * fdf->t.scale;
+	new_start.ord = (new_start.ord) * fdf->t.scale;
 	new_start.value = new_start.value * fdf->t.scale;
-	new_end.abs = (new_end.abs + fdf->t.move_x) * fdf->t.scale;
-	new_end.ord = (new_end.ord + fdf->t.move_y) * fdf->t.scale;
+	new_end.abs = (new_end.abs) * fdf->t.scale;
+	new_end.ord = (new_end.ord) * fdf->t.scale;
 	new_end.value = new_end.value * fdf->t.scale;
 	rotation_x(&new_start, &new_end, fdf->t.angle_x);
 	rotation_y(&new_start, &new_end, fdf->t.angle_y);
