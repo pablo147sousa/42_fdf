@@ -6,7 +6,7 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:34:43 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/04/09 12:13:47 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/04/23 14:46:38 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,12 @@ t_img	*get_img(t_fdf *fdf)
 	if (!img->img)
 		return (free(img), perror("mlx img error\n"), NULL);
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
-								&img->line_length, &img->endian);
+			&img->line_length, &img->endian);
 	if (!img->addr)
 		return (free(img), perror("mlx img addr error\n"), NULL);
 	return (img);
 }
 
-// todo tratar os angulos e colormode?
 t_fdf	*alloc_fdf(t_info *table)
 {
 	t_fdf	*fdf;
@@ -65,13 +64,18 @@ t_fdf	*alloc_fdf(t_info *table)
 	fdf->mlx = mlx_init();
 	if (!fdf->mlx)
 		return (free(fdf), perror("mlx init error\n"), NULL);
-	win_size(table, fdf);
-	fdf->win = mlx_new_window(fdf->mlx, fdf->win_width,
-		 fdf->win_height, "fdf");
-	 if (!fdf->win)
-		return (free(fdf), perror("mlx windows error\n"), NULL);
 	fdf->map = alloc_map(table);
 	if (!fdf->map)
 		return (free(fdf), NULL);
+	win_size(table, fdf);
+	fdf->win = mlx_new_window(fdf->mlx, fdf->win_width, fdf->win_height,
+			"fdf");
+	if (!fdf->win)
+		return (free(fdf), perror("mlx windows error\n"), NULL);
+	get_offset(fdf);
+	fdf->t.zoom = 1;
+	fdf->t.angle_x = 60;
+	fdf->t.angle_y = 45;
+	fdf->t.angle_z = -15;
 	return (fdf);
 }

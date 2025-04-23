@@ -9,8 +9,8 @@ NAME = fdf
 
 # SOURCES AND OBJS
 MAIN    =	main.c
-SOURCES =	map.c colors.c constructors.c cleaners.c aux.c utils.c window.c \
-			functions.c draw.c pov.c
+SOURCES =	map.c colors.c constructors.c cleaners.c aux.c utils.c \
+			extra.c functions.c draw.c pov.c toggles.c transform.c
 
 # Includes
 INCLUDE = include
@@ -24,16 +24,8 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(SOURCES:.c=.o))
 OBJS_MAIN = $(addprefix $(OBJS_DIR)/, $(MAIN:.c=.o))
 
 LIBFT = ./libft/libft.a
-MLX = ./minilibx/libmlx_Linux.a
-MLX_LINKS = -L./minilibx -lmlx_Linux -lXext -lX11 -lm
-
-# BONUS STUFF
-BONUS = 
-
-SOURCES_BONUS = 
-SRCS_DIR_BONUS = bonus
-SRCS_BONUS = $(addprefix $(SRCS_DIR_BONUS)/, $(SOURCES_BONUS))
-OBJS_BONUS = $(addprefix $(OBJS_DIR)/, $(SOURCES_BONUS:.c=.o))
+MLX = ./minilibx-linux/libmlx_Linux.a
+MLX_LINKS = -L./minilibx-linux -lmlx_Linux -lXext -lX11 -lm
 
 # COMPILATION STUFFS
 CC = cc
@@ -58,30 +50,21 @@ $(LIBFT):
 	@make -C ./libft -s
 
 $(MLX):
-	@make -C ./minilibx -s
-
-bonus: $(LIBFT) $(OBJS_BONUS)
-	@echo "$(YELLOW)Compiling $(BONUS)...$(RESET)"
-	@$(CC) $(CFLAGS) -o $(BONUS) $(OBJS_BONUS) $(INCLUDE_FLAGS) $(LIBFT)
-
-$(OBJS_DIR)/%.o: $(SRCS_DIR_BONUS)/%.c | $(OBJS_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE_FLAGS)
+	@make -C ./minilibx-linux -s
 
 clean:
 	@echo "$(RED)Removing objects$(RESET)"
 	@rm -rf $(OBJS_DIR)
-	@make clean -C ./minilibx -s
+	@make clean -C ./minilibx-linux -s
 	@make clean -C ./libft -s
 
 fclean: clean
 	@echo "$(RED)Removing $(NAME)$(RESET)"
 	@rm -rf $(NAME)
-#	@echo "$(RED)Removing $(BONUS)$(RESET)"
-	@rm -rf $(BONUS)
 	@echo "$(RED)Removing libs$(RESET)"
 	@rm -rf $(LIBFT)
 
 re:	fclean all
 	@echo "$(ORANGE)Re-Done!!$(RESET)"
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
