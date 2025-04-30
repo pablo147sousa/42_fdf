@@ -6,7 +6,7 @@
 /*   By: pmoreira <pmoreira@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:53:47 by pmoreira          #+#    #+#             */
-/*   Updated: 2025/04/23 15:53:28 by pmoreira         ###   ########.fr       */
+/*   Updated: 2025/04/30 10:53:16 by pmoreira         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@
 # endif
 
 # ifndef WIDTH
-#  define WIDTH 1000
+#  define WIDTH 1080
 # endif
 
 # ifndef HEIGHT
-#  define HEIGHT 700
+#  define HEIGHT 1080
 # endif
 
 # ifndef MAX_WIN_SIZE
